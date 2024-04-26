@@ -1,9 +1,44 @@
+@font-face {
+  font-family: 'S-CoreDream-3Light';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'S-CoreDream-5Medium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'S-CoreDream-9Black';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'S-CoreDream-5Medium';
+
 }
+
+.light {
+  font-family: 'S-CoreDream-3Light';
+}
+.medium {
+  font-family: 'S-CoreDream-5Medium';
+}
+.bold {
+  font-family: 'S-CoreDream-9Black';
+}
+
 
 html {
   -moz-text-size-adjust: none;
@@ -49,6 +84,10 @@ h2,
 h3,
 h4 {
   text-wrap: balance;
+}
+
+a {
+  text-decoration: none;
 }
 
 a:not([class]) {
