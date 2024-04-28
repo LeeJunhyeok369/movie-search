@@ -1,9 +1,28 @@
 html { height: 100%; overflow:auto; }
 body { height: 100%; }
 
+#wrap {
+    position: relative;
+}
+
 .inner_wrap {
     max-width: 1200px;
     margin: 0 auto;
+}
+
+#pageUp {
+    width: 65px;
+    position: fixed;
+    bottom: 100px;
+    right: 10vw;
+    z-index: 100;
+    cursor: pointer;
+}
+
+#pageUp img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 header {
@@ -14,7 +33,7 @@ header {
 }
 
 main {
-    min-height: calc(100vh - 250px);
+    min-height: calc(100vh - 275px);
 }
 
 

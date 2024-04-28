@@ -4,8 +4,9 @@ const ApiToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMWNjZjU3OTNmOWU1MWNmYmEwMTk4Z
 const $popular = document.getElementById("popular");
 const $top_rated = document.getElementById("top_rated");
 const $form = document.getElementById('search');
+const $pageUp = document.getElementById('pageUp');
 
-let movies;
+let movies, scrollHeight;
 
 const ApiFetch = async (url) => {
     let json;
@@ -29,7 +30,7 @@ const ApiFetch = async (url) => {
 const movieListAPI = async (url = "/3/movie/popular?language=en-US&page=1") => {
     const api = await ApiFetch(url);
     movies = api.results;
-    createMovieList(movies);
+    await createMovieList(movies);
 }
 
 
@@ -54,30 +55,24 @@ const createMovieList = async (movies)  => {
     }
 
     document.querySelector("#movie-list").innerHTML = html;
+
+
 }
 
 const handleSearch = (e) => {
     e.preventDefault();
     let movieSearch = movies.filter((movie) => movie.title.toLowerCase().includes(e.target[0].value.toLowerCase()));
-    console.log(movieSearch);
     createMovieList(movieSearch);
 }
 
-let scrollHeight = 0;
+
+
 addEventListener('scroll', (e) => {
     scrollHeight = e.target.documentElement.scrollTop;
-    // bottom = el.scrollHeight - el.scrollTop === el.clientHeight
-    console.log(scrollHeight);
     sessionStorage.setItem("scrollY", scrollHeight);
 });
 
 
-const html = document.querySelector('html');
-const scrollY = parseInt(sessionStorage.getItem("scrollY"));
-if(scrollY && scrollY > 0){
-    window.scrollTo(scrollY,0);
-    console.log(scrollY);
-}
 $top_rated.addEventListener('click', (e) => {
     if(!e.target.classList.contains('chk')){
         let $chk = document.getElementsByClassName("chk")[0];
@@ -96,17 +91,20 @@ $popular.addEventListener('click', (e) => {
     }
 });
 
-(function init() {
-    movieListAPI();
+$pageUp.addEventListener('click', (e) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    sessionStorage.setItem("scrollY", 0);
+});
 
+(async function init() {
+    await movieListAPI();
+
+    const scrollY = parseInt(sessionStorage.getItem("scrollY"));
+    if(scrollY && scrollY > 0){
+        window.scrollTo(0, scrollY);
+    }
 
 })()
-
-
-
-
-
-
 
 
 
