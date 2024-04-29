@@ -83,7 +83,8 @@ $menu_btn.forEach(btn => {
                 movieListAPI("/3/movie/top_rated?language=en-US&page=1");
             }
             $chk.classList.remove("chk");
-            e.target.className += 'chk';
+            console.log($chk.classList);
+            e.target.className += ' chk';
         }
     });
 });
