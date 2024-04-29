@@ -146,6 +146,14 @@ main {
     height: 100%;
     object-fit: cover;
 }
+#movie-list .movie .hover p {
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 12;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 #movie-list .movie .hover {
     position: absolute;

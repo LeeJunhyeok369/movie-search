@@ -1,10 +1,9 @@
 const ApiKey = '21ccf5793f9e51cfba0198fa23b3d541';
 const ApiToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMWNjZjU3OTNmOWU1MWNmYmEwMTk4ZmEyM2IzZDU0MSIsInN1YiI6IjY2MmEwZDFkYmYzMWYyMDA5YWUzMzAzYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sNlesGPpMfB6Nt3ZqEFMSIwcE88KWjPts2Waw_I2qp8';
 
-const $popular = document.getElementById("popular");
-const $top_rated = document.getElementById("top_rated");
 const $form = document.getElementById('search');
 const $pageUp = document.getElementById('pageUp');
+const $menu_btn = document.querySelectorAll('.menu_btn');
 
 let movies, scrollHeight;
 
@@ -73,37 +72,36 @@ addEventListener('scroll', (e) => {
 });
 
 
-$top_rated.addEventListener('click', (e) => {
-    if(!e.target.classList.contains('chk')){
-        let $chk = document.getElementsByClassName("chk")[0];
-        movieListAPI("/3/movie/top_rated?language=en-US&page=1");
-        $chk.classList.remove("chk");
-        e.target.className += 'chk';
-    }
+
+$menu_btn.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        if(!e.target.classList.contains('chk')){
+            let $chk = document.getElementsByClassName("chk")[0];
+            if(e.target.getAttribute('id') === "popular"){
+                movieListAPI();
+            }else if(e.target.getAttribute('id') === "top_rated"){
+                movieListAPI("/3/movie/top_rated?language=en-US&page=1");
+            }
+            $chk.classList.remove("chk");
+            e.target.className += 'chk';
+        }
+    });
 });
 
-$popular.addEventListener('click', (e) => {
-    if(!e.target.classList.contains('chk')){
-        let $chk = document.getElementsByClassName("chk")[0];
-        movieListAPI();
-        $chk.classList.remove("chk");
-        e.target.className += 'chk';
-    }
-});
+
 
 $pageUp.addEventListener('click', (e) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    // sessionStorage.setItem("scrollY", 0);
 });
 
 (async function init() {
     await movieListAPI();
 
+    document.querySelector("#search_input").focus();
     const scrollY = parseInt(sessionStorage.getItem("scrollY"));
     if(scrollY && scrollY > 0){
         window.scrollTo(0, scrollY);
     }
-
 })()
 
 
