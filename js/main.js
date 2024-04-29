@@ -29,31 +29,28 @@ const ApiFetch = async (url) => {
 const movieListAPI = async (url = "/3/movie/popular?language=en-US&page=1") => {
     const api = await ApiFetch(url);
     movies = api.results;
+    console.log(api.results);
     await createMovieList(movies);
-}
+} 
 
 
 const createMovieList = async (movies)  => {
-    let html = "";
-    for (let i = 0; i < movies.length; i++) {
-        let movie = await ApiFetch(`/3/movie/${movies[i].id}?original_language="eu-US"`, );
-        html += `
-        <div class="movie ${movie.id}" onClick="alert('영화 id: ${movie.id}')">
-            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.id}">
+    document.querySelector("#movie-list").innerHTML = movies.map((e) =>
+        `
+        <div class="movie ${e.id}" onClick="alert('영화 id: ${e.id}')">
+            <img src="https://image.tmdb.org/t/p/w500${e.poster_path}" alt="${e.id}">
             <div class="hover">
                 <h3 class="title bold">
-                ${movie.title}
+                ${e.title}
                 </h3>
                 <p>
-                ${movie.overview}
+                ${e.overview}
                 </p>
-                <span>평점: ${movie.vote_average}</span>
+                <span>평점: ${e.vote_average}</span>
             </div>
         </div>
         `
-    }
-
-    document.querySelector("#movie-list").innerHTML = html;
+    ).join("");
 
 
 }
@@ -83,7 +80,6 @@ $menu_btn.forEach(btn => {
                 movieListAPI("/3/movie/top_rated?language=en-US&page=1");
             }
             $chk.classList.remove("chk");
-            console.log($chk.classList);
             e.target.className += ' chk';
         }
     });
