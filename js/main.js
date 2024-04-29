@@ -93,7 +93,7 @@ $popular.addEventListener('click', (e) => {
 
 $pageUp.addEventListener('click', (e) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    sessionStorage.setItem("scrollY", 0);
+    // sessionStorage.setItem("scrollY", 0);
 });
 
 (async function init() {
@@ -105,8 +105,5 @@ $pageUp.addEventListener('click', (e) => {
     }
 
 })()
-
-
-
 
 
