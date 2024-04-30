@@ -32,7 +32,6 @@ export const handleSearch = (e) => {
 export const movieListAPI = async (url = "/3/movie/popular?language=en-US&page=1") => {
     const api = await ApiFetch(url);
     movies = api.results;
-    console.log(api.results);
     await createMovieList(movies);
 } 
 
