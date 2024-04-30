@@ -1,7 +1,7 @@
 import { movieListAPI, handleSearch } from "./movie.js"
 
 const $pageUp = document.getElementById('pageUp');
-const $menu_btn = document.querySelectorAll('.menu_btn');
+const $main_menus = document.querySelector("#main_menus");
 
 let scrollHeight;
 
@@ -12,19 +12,21 @@ addEventListener('scroll', (e) => {
 
 document.getElementById('search').addEventListener('submit', handleSearch);
 
-$menu_btn.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        if(!e.target.classList.contains('chk')){
-            let $chk = document.getElementsByClassName("chk")[0];
-            if(e.target.getAttribute('id') === "popular"){
-                movieListAPI();
-            }else if(e.target.getAttribute('id') === "top_rated"){
-                movieListAPI("/3/movie/top_rated?language=en-US&page=1");
-            }
-            $chk.classList.remove("chk");
-            e.target.className += ' chk';
+$main_menus.addEventListener('click', (e) => {
+    console.log($main_menus); 
+    const targetBtn = e.target.closest('.menu_btn');
+    if (targetBtn && !targetBtn.classList.contains('chk')) {
+        const $chk = document.querySelector(".chk");
+        if (targetBtn.id === "popular") {
+            movieListAPI();
+        } else if (targetBtn.id === "top_rated") {
+            movieListAPI("/3/movie/top_rated?language=en-US&page=1");
         }
-    });
+        if ($chk) {
+            $chk.classList.remove("chk");
+        }
+        targetBtn.classList.add('chk');
+    }
 });
 
 $pageUp.addEventListener('click', (e) => {
