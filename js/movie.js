@@ -4,6 +4,18 @@ const ApiToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMWNjZjU3OTNmOWU1MWNmYmEwMTk4Z
 const $movieList = document.querySelector("#movie-list");
 let movies;
 
+export const handleSearch = (e) => {
+    e.preventDefault();
+    let movieSearch = movies.filter((movie) => movie.title.toLowerCase().includes(e.target[0].value.toLowerCase()));
+    createMovieList(movieSearch);
+}
+
+export const movieListAPI = async (url = "/3/movie/popular?language=en-US&page=1") => {
+    const api = await ApiFetch(url);
+    movies = api.results;
+    await createMovieList(movies);
+} 
+
 const ApiFetch = async (url) => {
     let json;
     const options = {
@@ -23,26 +35,11 @@ const ApiFetch = async (url) => {
     return json;
 }
 
-export const handleSearch = (e) => {
-    e.preventDefault();
-    let movieSearch = movies.filter((movie) => movie.title.toLowerCase().includes(e.target[0].value.toLowerCase()));
-    createMovieList(movieSearch);
-}
-
-export const movieListAPI = async (url = "/3/movie/popular?language=en-US&page=1") => {
-    const api = await ApiFetch(url);
-    movies = api.results;
-    await createMovieList(movies);
-} 
-
-
-
-
 const createMovieList = async (movies)  => {
     $movieList.textContent = '';
     const movieListHTML = movies.map((e) =>
         `
-        <div class="movie ${e.id}">
+        <div class="movie ${e.id}" onClick="alert('영화 id: ${e.id}')">
             <img src="https://image.tmdb.org/t/p/w500${e.poster_path}" alt="${e.id}">
             <div class="hover">
                 <h3 class="title bold">
