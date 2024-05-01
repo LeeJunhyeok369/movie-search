@@ -36,7 +36,7 @@ const ApiFetch = async (url) => {
 }
 
 const createMovieList = async (movies)  => {
-    $movieList.textContent = '';
+    $movieList.innerHTML = '';
     const movieListHTML = movies.map((e) =>
         `
         <div class="movie ${e.id}" onClick="alert('영화 id: ${e.id}')">
